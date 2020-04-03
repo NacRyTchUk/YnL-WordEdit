@@ -8,13 +8,12 @@ using UnityEngine.UI;
 namespace Assets.Scripts
 {
     public class ScrollView : MonoBehaviour {
-        
         public GameObject content;
-         public Scrollbar vScroolBar;
+        public Scrollbar vScroolBar;
 
-       public GameObject layoutElement;
+        public GameObject layoutElement;
 
-        private RectTransform _conternRt, _scrollBarRt, _elemlRt;
+        private RectTransform _conternRt, _elemlRt;
         private int _colons;
 
         
@@ -23,7 +22,6 @@ namespace Assets.Scripts
         private void Start()
         {
             _conternRt = content.GetComponent<RectTransform>();
-            _scrollBarRt = vScroolBar.GetComponent<RectTransform>();
             _elemlRt = layoutElement.GetComponent<RectTransform>();
         }
 

@@ -4,27 +4,31 @@ using UnityEngine.UI;
 
 namespace Assets.Scripts
 {
-    public class Event : MonoBehaviour {
-
-        private InputField IB;
+    
+    public class Event : MonoBehaviour
+    {
+        public GameObject eventObj;
+        private InputField _ib;
 
         private void Start()
         {
-            IB = GetComponent<MapLoader>().inputBox;
+            _ib = GetComponent<MapFileSystem>().inputBox;
         }
     
         public void LoadButt()
         {
        
-            if (File.Exists(IB.text + "/Map.info"))
+            if (File.Exists(_ib.text + "/Map.info"))
             {
-                GetComponent<MapLoader>().LoadTheMap();
+                GetComponent<MapFileSystem>().LoadTheMap();
+                eventObj.GetComponent<UiManager>().ChangeUiVisible(UiModeIndex.Editor);
             }
         }
 
         public void CreateNewButt()
         {
-            GetComponent<MapLoader>().CreateNewMap();
+            MapFileSystem.CreateNewMap();
+            eventObj.GetComponent<UiManager>().ChangeUiVisible(UiModeIndex.Editor);
         }
     }
 }

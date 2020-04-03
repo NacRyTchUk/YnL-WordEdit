@@ -10,16 +10,28 @@
   <component name="HighlightingSettingsPerFile">
     <setting file="file://$PROJECT_DIR$/Assets/Scripts/Event.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Assets/Scripts/BlockPanel.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Assets/Scripts/UiManager.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Assets/Scripts/ScrollView.cs" root0="FORCE_HIGHLIGHTING" />
-    <setting file="file://$PROJECT_DIR$/Assets/Scripts/MapLoader.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Assets/Scripts/MoveController.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Assets/Scripts/MapFileSystem.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Assets/Scripts/ChunkLoader.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Assets/Scripts/Chunkk.cs" root0="FORCE_HIGHLIGHTING" />
   </component>
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
         <option value="$PROJECT_DIR$/Assets/Scripts/BlockPanel.cs" />
+        <option value="$PROJECT_DIR$/Assets/Scripts/MapLoader.cs" />
+        <option value="$PROJECT_DIR$/Assets/Scripts/UIManager.cs" />
+        <option value="$PROJECT_DIR$/Assets/Scripts/UiManag.cs" />
         <option value="$PROJECT_DIR$/Assets/Scripts/ScrollView.cs" />
         <option value="$PROJECT_DIR$/Assets/Scripts/Event.cs" />
-        <option value="$PROJECT_DIR$/Assets/Scripts/MapLoader.cs" />
+        <option value="$PROJECT_DIR$/Assets/Scripts/UiManager.cs" />
+        <option value="$PROJECT_DIR$/Assets/Scripts/MoveController.cs" />
+        <option value="$PROJECT_DIR$/Assets/Scripts/Chunk.cs" />
+        <option value="$PROJECT_DIR$/Assets/Scripts/ChunkLoader.cs" />
+        <option value="$PROJECT_DIR$/Assets/Scripts/Chunkk.cs" />
+        <option value="$PROJECT_DIR$/Assets/Scripts/MapFileSystem.cs" />
       </list>
     </option>
   </component>
@@ -44,6 +56,8 @@
       <updated>1585787720738</updated>
       <workItem from="1585787820107" duration="4367000" />
       <workItem from="1585792598059" duration="16000" />
+      <workItem from="1585852073720" duration="152000" />
+      <workItem from="1585852350500" duration="19456000" />
     </task>
     <servers />
   </component>

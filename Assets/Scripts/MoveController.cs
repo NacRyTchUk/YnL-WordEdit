@@ -1,58 +1,58 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
+using UnityEngine.Experimental.UIElements;
 using UnityEngine.Rendering.PostProcessing;
+// ReSharper disable MemberCanBePrivate.Global
+// ReSharper disable UnassignedField.Global
 
-public class MoveController : MonoBehaviour
+namespace Assets.Scripts
 {
-
-    public PostProcessProfile ppp;
-    public Camera cam;
-    public GameObject scrollView;
-
-    private Vector2 oldMousePos;
-    private bool isSelectingBlockMenuActive;
-
-
-    void Update()
+    public class MoveController : MonoBehaviour
     {
-        CheckMiddleButtMove();
-        CheckBlockSelektingMenu();
-    }
 
-    void CheckMiddleButtMove()
-    {
-        if (Input.GetMouseButtonDown(2))
+        public PostProcessProfile ppp;
+        public Camera cam;
+        public GameObject scrollView;
+
+        private Vector2 _oldMousePos;
+        private bool _isSelectingBlockMenuActive;
+
+
+        private void Update()
         {
-            oldMousePos = new Vector2(Input.mousePosition.x, Input.mousePosition.y);
-            return;
+            CheckMiddleButtMove();
+            CheckBlockSelektingMenu();
         }
-        if ((Input.GetMouseButton(2)) && (((Input.mousePosition.x - oldMousePos.x) != 0) || ((Input.mousePosition.y - oldMousePos.y) != 0)))
+
+        private void CheckMiddleButtMove()
         {
-            cam.transform.position -= new Vector3(((Input.mousePosition.x - oldMousePos.x)) * Time.fixedDeltaTime, ((Input.mousePosition.y - oldMousePos.y)) * Time.fixedDeltaTime);
-            oldMousePos = new Vector2(Input.mousePosition.x, Input.mousePosition.y);
-        }
-    }
-
-
-    void CheckBlockSelektingMenu()
-    {
-        if (Input.GetKeyDown(KeyCode.E))
-        {
-
-            if (isSelectingBlockMenuActive)
+            if (Input.GetMouseButtonDown(2))
             {
-                scrollView.gameObject.SetActive(false);
-                isSelectingBlockMenuActive = false;
-                ppp.settings[0].active = false;
+                _oldMousePos = new Vector2(Input.mousePosition.x, Input.mousePosition.y);
+                return;
+            }
+
+            if ((!Input.GetMouseButton(2)) ||
+                ((Input.mousePosition.x == _oldMousePos.x) && (Input.mousePosition.y == _oldMousePos.y))) return;
+            cam.transform.position -= new Vector3(((Input.mousePosition.x - _oldMousePos.x)) * Time.fixedDeltaTime, ((Input.mousePosition.y - _oldMousePos.y)) * Time.fixedDeltaTime);
+            _oldMousePos = new Vector2(Input.mousePosition.x, Input.mousePosition.y);
+        }
+
+
+        private void CheckBlockSelektingMenu()
+        {
+            if (!Input.GetKeyDown(KeyCode.E)) return; //Это по хорошему, как и все остальные использования input'ов, нужно переделать
+            var umi = GetComponent<UiManager>().curModeOfUi;
+            if (umi == UiModeIndex.Editor)
+            {
+                GetComponent<UiManager>().ChangeUiVisible(UiModeIndex.BlockSelecting);
+                ppp.settings[0].active = true;
                 
                 
             }
-            else
+            else 
             {
-                scrollView.gameObject.SetActive(true);
-                isSelectingBlockMenuActive = true;
-                ppp.settings[0].active = true;
+                GetComponent<UiManager>().ChangeUiVisible(UiModeIndex.Editor);
+                ppp.settings[0].active = false;
             }
         }
     }

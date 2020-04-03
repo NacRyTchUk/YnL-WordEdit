@@ -13,7 +13,7 @@
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <AssemblyName>Assembly-CSharp</AssemblyName>
-    <TargetFrameworkVersion>v3.5</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <BaseDirectory>.</BaseDirectory>
   </PropertyGroup>
@@ -54,14 +54,15 @@
   </ItemGroup>
   <ItemGroup>
      <Compile Include="Assets\Scripts\BlockPanel.cs" />
-     <Compile Include="Assets\Scripts\Chunk.cs" />
+     <Compile Include="Assets\Scripts\Chunkk.cs" />
      <Compile Include="Assets\Scripts\ChunkLoader.cs" />
      <Compile Include="Assets\Scripts\Event.cs" />
-     <Compile Include="Assets\Scripts\MapLoader.cs" />
+     <Compile Include="Assets\Scripts\MapFileSystem.cs" />
      <Compile Include="Assets\Scripts\MoveController.cs" />
      <Compile Include="Assets\Scripts\Player_Animation.cs" />
      <Compile Include="Assets\Scripts\Player_Move.cs" />
      <Compile Include="Assets\Scripts\ScrollView.cs" />
+     <Compile Include="Assets\Scripts\UiManager.cs" />
      <None Include="Assets\Balls&apos;n&apos;Lasers\Save100.txt" />
  <Reference Include="UnityEditor.StandardEvents">
  <HintPath>F:/OnI/UniProj/YnL WordEdit/Library/ScriptAssemblies/UnityEditor.StandardEvents.dll</HintPath>
