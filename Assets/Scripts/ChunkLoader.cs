@@ -1,4 +1,5 @@
-﻿/*using System;
+﻿using System;
+using System.Collections.Generic;
 using System.IO;
 using UnityEngine;
 // ReSharper disable MemberCanBePrivate.Global
@@ -6,49 +7,25 @@ using UnityEngine;
 
 namespace Assets.Scripts
 {
-    public class ChunkLoader : MonoBehaviour
+    public class ChunkLoader
     {
-        public GameObject parentsOfChunks;
-         
+        private List<Chunk> _listOfChunks = new List<Chunk>();
+        private GameObject map = new GameObject("Map");
         
-        
-        public void LoadTheChunk(Chunk curChunk)
-        {    
-            var chunkCoord = curChunk.GetCoord();
-            
-
-           
-            using (var sr = new StreamReader(inputBox.text + "/" + chunkCoord.x + ',' + chunkCoord.y + ".chunk"))
-            {
-                
-                var pic = LoadSprites(Application.streamingAssetsPath, "*.png");
-                
-                var fileLine = sr.ReadLine();
-                if (fileLine == null) throw new NullReferenceException();
-                
-                var mainBlock = fileLine.Split('$');
-                var bricks = mainBlock[0].Split(':');
-                foreach (var t in bricks)
-                {
-                    var oneBrick = t.Replace("[", "").Replace("]", "");
-                    var brickData = oneBrick.Split(';');
-                    
-                    Block newBlock;
-                    newBlock.blockIndex = Convert.ToInt32(brickData[0]);
-                    newBlock.x = Convert.ToSingle(brickData[1]);
-                    newBlock.y = Convert.ToSingle(brickData[2]);
-                    newBlock.mainLayer = Convert.ToInt32(brickData[3]);
-                    
-                    
-                    var spr = new GameObject();
-                    spr.AddComponent<SpriteRenderer>().sprite = pic[newBlock.blockIndex ];
-
-                    spr.transform.position = new Vector3(newBlock.x, newBlock.y, newBlock.mainLayer);
-                }
-            }
-            GetComponent<UiManager>().ChangeUiVisible(UiModeIndex.Editor);
+        public List<Chunk> ListOfChunks
+        {
+            get { return _listOfChunks; }
+            set { _listOfChunks = value; }
         }
-        
-        
+
+        public void LoadAllChunks()
+        {
+            foreach (var loc in _listOfChunks)
+            {
+                loc.Load(map);
+            }
+            
+        }
+
     }
-}*/
+}

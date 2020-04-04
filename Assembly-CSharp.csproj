@@ -53,7 +53,6 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-     <Compile Include="Assets\Scripts\BlockPanel.cs" />
      <Compile Include="Assets\Scripts\Chunk.cs" />
      <Compile Include="Assets\Scripts\Chunkk.cs" />
      <Compile Include="Assets\Scripts\ChunkLoader.cs" />
@@ -63,8 +62,10 @@
      <Compile Include="Assets\Scripts\MoveController.cs" />
      <Compile Include="Assets\Scripts\Player_Animation.cs" />
      <Compile Include="Assets\Scripts\Player_Move.cs" />
-     <Compile Include="Assets\Scripts\ScrollView.cs" />
-     <Compile Include="Assets\Scripts\UiManager.cs" />
+     <Compile Include="Assets\Scripts\Ui\BlockPanel.cs" />
+     <Compile Include="Assets\Scripts\Ui\ScrollView.cs" />
+     <Compile Include="Assets\Scripts\Ui\SelectLayer.cs" />
+     <Compile Include="Assets\Scripts\Ui\UiManager.cs" />
      <None Include="Assets\Balls&apos;n&apos;Lasers\Save100.txt" />
  <Reference Include="UnityEditor.StandardEvents">
  <HintPath>F:/OnI/UniProj/YnL-WordEdit/Library/ScriptAssemblies/UnityEditor.StandardEvents.dll</HintPath>

@@ -1,88 +1,113 @@
-﻿using System.Collections;
+﻿using System;
 using System.Collections.Generic;
 using System.IO;
-using System;
+using JetBrains.Annotations;
 using UnityEngine;
-using UnityEngine.UI;
+using Object = UnityEngine.Object;
 
-
-struct block
+namespace Assets.Scripts
 {
-    public float x;
-    public float y;
-    public int mainLayer;
-    public int blockIndex;
-}
-
-public class Chunk
-{
-    Vector2 CoordOfTheChunk;
-
-    List<block> listOfBlocks = new List<block>();
-
-    GameObject parentOfChunk, chunkObject;
-
-    public void SetCoord(int x, int y)
+    public class Chunk
     {
-        CoordOfTheChunk.x = x;
-        CoordOfTheChunk.y = y;
-    }
+        public  const int CHUNK_WIGHT = 48, CHUNK_HEIGHT = 24, MIN_LAYER_VALUE = 5, MAX_LAYER_VALUE = 5;
+        private GameObject[] _layersHeaders = new GameObject[MAX_LAYER_VALUE + MIN_LAYER_VALUE + 1];
+        private Vector2 _coordOfTheChunk;
+        private string _dir;
+        private List<Block> _listOfBlocks = new List<Block>();
 
-    public void SetCoord(Vector2 COORD)
-    {
-        CoordOfTheChunk = COORD;
-    }
-
-
-    public void DisplayInfo()
-    {
-        Debug.Log("Chunk x: " + CoordOfTheChunk.x + ", y: " + CoordOfTheChunk.y);
-    }
+        private GameObject _parentOfChunk;
 
 
-    public void LoadInMemory()
-    {
-        TextAsset txtAsset = (TextAsset)Resources.Load("Map\\" + CoordOfTheChunk.x + "," + CoordOfTheChunk.y, typeof(TextAsset));
-        string[] pageOfFile = txtAsset.text.Split('$');
-
-        string[] bricksInFile = pageOfFile[0].Split(':');
-
-        block NewBlock;
-        for (int i = 0; i < bricksInFile.Length; i++)
+        public string Dir
         {
-            bricksInFile[i] = bricksInFile[i].Trim('[');
-            bricksInFile[i] = bricksInFile[i].Trim(']');
-            string[] elementsInBrick = bricksInFile[i].Split(';');
-            NewBlock.blockIndex = Convert.ToInt32(elementsInBrick[0]);
-            NewBlock.x = Convert.ToSingle(elementsInBrick[1]);
-            NewBlock.y = Convert.ToSingle(elementsInBrick[2]);
-            NewBlock.mainLayer = Convert.ToInt32(elementsInBrick[3]);
-            listOfBlocks.Add(NewBlock);
+            get { return _dir; }
+            set { _dir = value; }
         }
 
-    }
-
-    public void LoadOnScreen()
-    {
-
-        chunkObject = MonoBehaviour.Instantiate((GameObject)Resources.Load("Empty"), parentOfChunk.transform);
-        chunkObject.name = CoordOfTheChunk.x + "," + CoordOfTheChunk.y;
-
-        GameObject newGameObject;
-        for (int i = 0; i < listOfBlocks.Count; i++)
+        public static int MinLayerValue
         {
-            newGameObject = MonoBehaviour.Instantiate((GameObject)Resources.Load("BlocksPrefabs/" + Convert.ToString(listOfBlocks[i].blockIndex)), chunkObject.transform);
-            newGameObject.name = "[" + listOfBlocks[i].blockIndex + ";" + listOfBlocks[i].x + ";" + listOfBlocks[i].y + ";" + listOfBlocks[i].mainLayer + "]";
-            newGameObject.transform.position = new Vector3(listOfBlocks[i].x * 0.5f, listOfBlocks[i].y * 0.5f, listOfBlocks[i].mainLayer * 0.5f);
-            if (listOfBlocks[i].mainLayer == 0)
-                newGameObject.AddComponent<BoxCollider2D>();
+            get { return MIN_LAYER_VALUE; }
         }
-    }
 
-    public void Load(GameObject POM)
-    {
-        parentOfChunk = POM;
-        LoadInMemory();
-        LoadOnScreen();
+        public GameObject[] LayersHeaders
+        {
+            get { return _layersHeaders; }
+        }
+
+
+        public void SetCoord(int x, int y)
+        {
+            _coordOfTheChunk.x = x;
+            _coordOfTheChunk.y = y;
+        }
+
+        public void SetCoord(Vector2 coord)
+        {
+            _coordOfTheChunk = coord;
+        }
+
+        public Vector2 GetCoord()
+        {
+            return _coordOfTheChunk;
+        }
+
+        private void LoadOnScreen()
+        {
+            var chunkHeader = Object.Instantiate((GameObject) Resources.Load("Empty"), _parentOfChunk.transform);
+            chunkHeader.name = _coordOfTheChunk.x + "," + _coordOfTheChunk.y;
+
+
+            foreach (var lob in _listOfBlocks)
+            {
+                var layerValue = lob.mainLayer + MIN_LAYER_VALUE;
+                if (_layersHeaders[layerValue] == null)
+                {
+                    _layersHeaders[layerValue] =
+                        Object.Instantiate((GameObject) Resources.Load("Empty"), chunkHeader.transform);
+                    _layersHeaders[layerValue].name = "Layer: " + lob.mainLayer;
+                }
+
+                var newObj = Object.Instantiate((GameObject) Resources.Load("Empty"),
+                    _layersHeaders[layerValue].transform);
+                newObj.name = "[" + lob.blockIndex + ";" + lob.x + ";" + lob.y + ";" + lob.mainLayer + "]";
+
+                newObj.AddComponent<SpriteRenderer>().sprite = MapFileSystem.pic[lob.blockIndex];
+
+                newObj.transform.position = new Vector3(lob.x + _coordOfTheChunk.x * CHUNK_WIGHT,
+                    lob.y + _coordOfTheChunk.y * CHUNK_HEIGHT, lob.mainLayer);
+            }
+        }
+
+
+        private void LoadInMemory()
+        {
+            using (var sr = new StreamReader(_dir + "/" + _coordOfTheChunk.x + ',' + _coordOfTheChunk.y + ".chunk"))
+            {
+                var fileLine = sr.ReadLine();
+                if (fileLine == null) throw new NullReferenceException();
+
+                var mainBlock = fileLine.Split('$');
+                var bricks = mainBlock[0].Split(':');
+                foreach (var t in bricks)
+                {
+                    var oneBrick = t.Replace("[", "").Replace("]", "");
+                    var brickData = oneBrick.Split(';');
+
+                    Block newBlock;
+                    newBlock.blockIndex = Convert.ToInt32(brickData[0]);
+                    newBlock.x = Convert.ToSingle(brickData[1]);
+                    newBlock.y = Convert.ToSingle(brickData[2]);
+                    newBlock.mainLayer = Convert.ToInt32(brickData[3]);
+                    _listOfBlocks.Add(newBlock);
+                }
+            }
+        }
+
+        public void Load([NotNull] GameObject pom)
+        {
+            _parentOfChunk = pom;
+            LoadInMemory();
+            LoadOnScreen();
+        }
     }
 }

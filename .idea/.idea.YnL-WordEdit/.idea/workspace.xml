@@ -11,12 +11,20 @@
     <favorites_list name="YnL-WordEdit" />
   </component>
   <component name="HighlightingSettingsPerFile">
+    <setting file="file://$PROJECT_DIR$/Assets/Scripts/ChunkLoader.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Assets/Scripts/MapFileSystem.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Assets/Scripts/Ui/SelectLayer.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Assets/Scripts/Chunk.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Assets/Scripts/Event.cs" root0="FORCE_HIGHLIGHTING" />
   </component>
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
+        <option value="$PROJECT_DIR$/Assets/Scripts/ChunkLoader.cs" />
+        <option value="$PROJECT_DIR$/Assets/Scripts/Chunk.cs" />
         <option value="$PROJECT_DIR$/Assets/Scripts/MapFileSystem.cs" />
+        <option value="$PROJECT_DIR$/Assets/Scripts/Event.cs" />
+        <option value="$PROJECT_DIR$/Assets/Scripts/Ui/SelectLayer.cs" />
       </list>
     </option>
   </component>
@@ -38,8 +46,14 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1585962889056</updated>
-      <workItem from="1585962948817" duration="3270000" />
+      <workItem from="1585962948817" duration="13117000" />
     </task>
     <servers />
+  </component>
+  <component name="WindowStateProjectService">
+    <state x="531" y="74" width="549" height="572" key="RiderGenerateDialog" timestamp="1585970637714">
+      <screen x="0" y="0" width="1366" height="728" />
+    </state>
+    <state x="531" y="74" width="549" height="572" key="RiderGenerateDialog/0.0.1366.728@0.0.1366.728" timestamp="1585970637714" />
   </component>
 </project>

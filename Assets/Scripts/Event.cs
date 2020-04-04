@@ -7,12 +7,12 @@ namespace Assets.Scripts
     
     public class Event : MonoBehaviour
     {
-        public GameObject eventObj;
+        [SerializeField] private GameObject eventObj;
         private InputField _ib;
 
         private void Start()
         {
-            _ib = GetComponent<MapFileSystem>().inputBox;
+            _ib = GetComponent<MapFileSystem>().InputBox;
         }
     
         public void LoadButt()
