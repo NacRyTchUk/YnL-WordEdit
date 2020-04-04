@@ -27,10 +27,11 @@ namespace Assets.Scripts
         
 
         public static  Sprite[] pic;
-        // ReSharper disable UnassignedField.Global // ReSharper disable MemberCanBePrivate.Global
-        public Button buttonLoad, buttonCreateNew;
-        public InputField inputBox;
-        // ReSharper restore UnassignedField.Global // ReSharper restore MemberCanBePrivate.Global
+        
+        [SerializeField] public Button buttonLoad;
+        [SerializeField] public Button buttonCreateNew;
+        [SerializeField] public InputField inputBox;
+        
         
         private string _mapNumbPostfix;
         
@@ -54,7 +55,7 @@ namespace Assets.Scripts
         public void LoadTheMap()
         {
             
-            var cm = new ChunkManager {ListOfChunks = LoadChunksFromDer(inputBox.text)};
+            var cm = new ChunkLoader {ListOfChunks = LoadChunksFrom(inputBox.text)};
             cm.LoadAllChunks();
         }
 
@@ -65,7 +66,7 @@ namespace Assets.Scripts
             
         }
 
-        private List<Chunk> LoadChunksFromDer(string dir)
+        private static List<Chunk> LoadChunksFrom(string dir)
         {
             var tChunkList = Directory.GetFiles(dir, "*.chunk");
             var tMap = new List<Chunk>();
@@ -116,7 +117,7 @@ namespace Assets.Scripts
     }
 
 
-    public class ChunkManager
+    public class ChunkLoader
     {
         private List<Chunk> _listOfChunks = new List<Chunk>();
         private GameObject map = new GameObject("Map");
@@ -139,18 +140,14 @@ namespace Assets.Scripts
     public class Chunk 
     {
        
-        private const int CHUNK_WIGHT = 48, CHUNK_HEIGHT = 24;
+        private const int CHUNK_WIGHT = 48, CHUNK_HEIGHT = 24, MIN_LAYER_VALUE = 5,MAX_LAYER_VALUE = 5;
         private Vector2 _coordOfTheChunk;
         private string _dir;
         private List<Block> _listOfBlocks = new List<Block>();
         
-        private  GameObject _parentOfChunk, _chunkObject;
+        private  GameObject _parentOfChunk;
         
-        public void SetCoord(int x, int y)
-        {
-            _coordOfTheChunk.x = x;
-            _coordOfTheChunk.y = y;
-        }
+        
 
         public string Dir
         {
@@ -158,6 +155,12 @@ namespace Assets.Scripts
             set { _dir = value; }
         }
 
+        public void SetCoord(int x, int y)
+        {
+            _coordOfTheChunk.x = x;
+            _coordOfTheChunk.y = y;
+        }
+        
         public void SetCoord(Vector2 coord)
         {
             _coordOfTheChunk = coord;
@@ -170,21 +173,29 @@ namespace Assets.Scripts
         
         private void LoadOnScreen()
         {
-            var pic = MapFileSystem.pic;
-            _chunkObject = Object.Instantiate((GameObject)Resources.Load("Empty"), _parentOfChunk.transform);
-            _chunkObject.name = _coordOfTheChunk.x + "," + _coordOfTheChunk.y;
-
+            var chunkHeader = Object.Instantiate((GameObject)Resources.Load("Empty"), _parentOfChunk.transform);
+            chunkHeader.name = _coordOfTheChunk.x + "," + _coordOfTheChunk.y;
+            
+            var layersHeaders = new GameObject[MAX_LAYER_VALUE+MIN_LAYER_VALUE+1];
+            
             foreach (var lob in _listOfBlocks)
             {
-               
-                var newObj = Object.Instantiate((GameObject)Resources.Load("Empty"), _chunkObject.transform);
+                var layerValue = lob.mainLayer + MIN_LAYER_VALUE;
+                if (layersHeaders[layerValue] == null)
+                {
+                    layersHeaders[layerValue] = Object.Instantiate((GameObject) Resources.Load("Empty"),chunkHeader.transform); 
+                    layersHeaders[layerValue].name = "Layer: " + lob.mainLayer;
+                }
+
+                var newObj = Object.Instantiate((GameObject)Resources.Load("Empty"), layersHeaders[layerValue].transform);
                 newObj.name = "[" + lob.blockIndex + ";" + lob.x + ";" + lob.y + ";" + lob.mainLayer + "]";
                 
-                newObj.AddComponent<SpriteRenderer>().sprite = pic[lob.blockIndex ];
+                newObj.AddComponent<SpriteRenderer>().sprite = MapFileSystem.pic[lob.blockIndex];
                 
                 newObj.transform.position = new Vector3(lob.x + _coordOfTheChunk.x*CHUNK_WIGHT, lob.y + _coordOfTheChunk.y*CHUNK_HEIGHT, lob.mainLayer);
             }
         }
+
         
         
         private void LoadInMemory()
