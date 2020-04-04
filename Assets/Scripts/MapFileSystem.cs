@@ -141,6 +141,7 @@ namespace Assets.Scripts
     {
        
         private const int CHUNK_WIGHT = 48, CHUNK_HEIGHT = 24, MIN_LAYER_VALUE = 5,MAX_LAYER_VALUE = 5;
+        private GameObject[] layersHeaders = new GameObject[MAX_LAYER_VALUE+MIN_LAYER_VALUE+1];
         private Vector2 _coordOfTheChunk;
         private string _dir;
         private List<Block> _listOfBlocks = new List<Block>();
@@ -176,7 +177,7 @@ namespace Assets.Scripts
             var chunkHeader = Object.Instantiate((GameObject)Resources.Load("Empty"), _parentOfChunk.transform);
             chunkHeader.name = _coordOfTheChunk.x + "," + _coordOfTheChunk.y;
             
-            var layersHeaders = new GameObject[MAX_LAYER_VALUE+MIN_LAYER_VALUE+1];
+           
             
             foreach (var lob in _listOfBlocks)
             {
