@@ -10,12 +10,14 @@
           <e p="Save100.txt" t="Include" />
         </e>
         <e p="Scripts" t="Include">
-          <e p="Chunk.cs" t="Include" />
-          <e p="Chunkk.cs" t="Include" />
-          <e p="ChunkLoader.cs" t="Include" />
           <e p="Event.cs" t="Include" />
-          <e p="MapFileSystem.cs" t="Include" />
-          <e p="MapLoader.cs" t="Include" />
+          <e p="Map" t="Include">
+            <e p="Block.cs" t="Include" />
+            <e p="BlockManager.cs" t="Include" />
+            <e p="Chunk.cs" t="Include" />
+            <e p="ChunkLoader.cs" t="Include" />
+            <e p="MapFileSystem.cs" t="Include" />
+          </e>
           <e p="MoveController.cs" t="Include" />
           <e p="Player_Animation.cs" t="Include" />
           <e p="Player_Move.cs" t="Include" />
