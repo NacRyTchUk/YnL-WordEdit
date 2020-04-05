@@ -54,7 +54,6 @@
   </ItemGroup>
   <ItemGroup>
      <Compile Include="Assets\Scripts\Chunk.cs" />
-     <Compile Include="Assets\Scripts\Chunkk.cs" />
      <Compile Include="Assets\Scripts\ChunkLoader.cs" />
      <Compile Include="Assets\Scripts\Event.cs" />
      <Compile Include="Assets\Scripts\MapFileSystem.cs" />

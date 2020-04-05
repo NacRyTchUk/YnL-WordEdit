@@ -24,10 +24,10 @@
         <option value="$PROJECT_DIR$/Assets/Scripts/MapFileSystem.cs" />
         <option value="$PROJECT_DIR$/Config.config" />
         <option value="$PROJECT_DIR$/Assets/Scripts/Event.cs" />
-        <option value="$PROJECT_DIR$/Assets/Scripts/ChunkLoader.cs" />
         <option value="$PROJECT_DIR$/Assets/Scripts/Ui/SelectLayer.cs" />
-        <option value="$PROJECT_DIR$/Assets/Scripts/MoveController.cs" />
         <option value="$PROJECT_DIR$/Assets/Scripts/Chunk.cs" />
+        <option value="$PROJECT_DIR$/Assets/Scripts/ChunkLoader.cs" />
+        <option value="$PROJECT_DIR$/Assets/Scripts/MoveController.cs" />
       </list>
     </option>
   </component>
@@ -50,7 +50,7 @@
       <option name="presentableId" value="Default" />
       <updated>1585962889056</updated>
       <workItem from="1585962948817" duration="13939000" />
-      <workItem from="1586054170923" duration="7950000" />
+      <workItem from="1586054170923" duration="10873000" />
     </task>
     <servers />
   </component>

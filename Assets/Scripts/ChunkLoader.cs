@@ -7,7 +7,7 @@ using UnityEngine;
 
 namespace Assets.Scripts
 {
-    public class ChunkLoader
+    public class ChunkLoader : MonoBehaviour
     {
         private List<Chunk> _listOfChunks = new List<Chunk>();
         private GameObject _map;

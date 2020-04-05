@@ -12,17 +12,12 @@ namespace Assets.Scripts
         public  const int CHUNK_WIGHT = 48, CHUNK_HEIGHT = 24, MIN_LAYER_VALUE = 5, MAX_LAYER_VALUE = 5;
         private GameObject[] _layersHeaders = new GameObject[MAX_LAYER_VALUE + MIN_LAYER_VALUE + 1];
         private Vector2 _coordOfTheChunk;
-        private string _dir;
         private List<Block> _listOfBlocks = new List<Block>();
 
         private GameObject _parentOfChunk;
 
 
-        public string Dir
-        {
-            get { return _dir; }
-            set { _dir = value; }
-        }
+        public string Dir { get; set; }
 
         public static int MinLayerValue
         {
@@ -53,6 +48,7 @@ namespace Assets.Scripts
 
         private void LoadOnScreen()
         {
+            
             var chunkHeader = Object.Instantiate((GameObject) Resources.Load("Empty"), _parentOfChunk.transform);
             chunkHeader.transform.position = new Vector3(_coordOfTheChunk.x*CHUNK_WIGHT,_coordOfTheChunk.y*CHUNK_HEIGHT);
             chunkHeader.name = _coordOfTheChunk.x + "," + _coordOfTheChunk.y;
@@ -81,7 +77,7 @@ namespace Assets.Scripts
 
         private void LoadInMemory()
         {
-            using (var sr = new StreamReader(_dir + "/" + _coordOfTheChunk.x + ',' + _coordOfTheChunk.y + ".chunk"))
+            using (var sr = new StreamReader(Dir + "/" + _coordOfTheChunk.x + ',' + _coordOfTheChunk.y + ".chunk"))
             {
                 var fileLine = sr.ReadLine();
                 if (fileLine == null) throw new NullReferenceException();
