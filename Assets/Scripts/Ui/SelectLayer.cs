@@ -7,7 +7,12 @@ namespace Assets.Scripts.Ui
 	public class SelectLayer : MonoBehaviour
 	{
 		[SerializeField] private GameObject eventObj;
+		private int _layer;
 
+		public int Layer
+		{
+			get { return _layer; }
+		}
 
 		public void AllVisible()
 		{
@@ -29,8 +34,8 @@ namespace Assets.Scripts.Ui
 		{
 			var intIF = Convert.ToInt32(inputField.text);
 			inputField.text = Convert.ToString(intIF + value);
-			LayerVisibleSet(Convert.ToInt32(inputField.text));
-			
+			_layer = Convert.ToInt32(inputField.text);
+			LayerVisibleSet(Layer);
 		}
 		
 		

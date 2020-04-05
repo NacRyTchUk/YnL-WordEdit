@@ -17,12 +17,9 @@ namespace Assets.Scripts
     
         public void LoadButt()
         {
-       
-            if (File.Exists(_ib.text + "/Map.info"))
-            {
-                GetComponent<MapFileSystem>().LoadTheMap();
-                eventObj.GetComponent<UiManager>().ChangeUiVisible(UiModeIndex.Editor);
-            }
+            if (!File.Exists(_ib.text + "/Map.info")) return;
+            GetComponent<MapFileSystem>().LoadTheMap();
+            eventObj.GetComponent<UiManager>().ChangeUiVisible(UiModeIndex.Editor);
         }
 
         public void CreateNewButt()

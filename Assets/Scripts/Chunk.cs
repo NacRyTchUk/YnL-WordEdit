@@ -54,11 +54,12 @@ namespace Assets.Scripts
         private void LoadOnScreen()
         {
             var chunkHeader = Object.Instantiate((GameObject) Resources.Load("Empty"), _parentOfChunk.transform);
+            chunkHeader.transform.position = new Vector3(_coordOfTheChunk.x*CHUNK_WIGHT,_coordOfTheChunk.y*CHUNK_HEIGHT);
             chunkHeader.name = _coordOfTheChunk.x + "," + _coordOfTheChunk.y;
-
 
             foreach (var lob in _listOfBlocks)
             {
+                
                 var layerValue = lob.mainLayer + MIN_LAYER_VALUE;
                 if (_layersHeaders[layerValue] == null)
                 {
@@ -73,8 +74,7 @@ namespace Assets.Scripts
 
                 newObj.AddComponent<SpriteRenderer>().sprite = MapFileSystem.pic[lob.blockIndex];
 
-                newObj.transform.position = new Vector3(lob.x + _coordOfTheChunk.x * CHUNK_WIGHT,
-                    lob.y + _coordOfTheChunk.y * CHUNK_HEIGHT, lob.mainLayer);
+                newObj.transform.position += new Vector3(lob.x, lob.y, lob.mainLayer);
             }
         }
 

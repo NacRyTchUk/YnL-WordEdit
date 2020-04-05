@@ -10,7 +10,7 @@ namespace Assets.Scripts
     public class ChunkLoader
     {
         private List<Chunk> _listOfChunks = new List<Chunk>();
-        private GameObject map = new GameObject("Map");
+        private GameObject _map;
         
         public List<Chunk> ListOfChunks
         {
@@ -20,11 +20,13 @@ namespace Assets.Scripts
 
         public void LoadAllChunks()
         {
+            _map = new GameObject("Map");
             foreach (var loc in _listOfChunks)
             {
-                loc.Load(map);
+                loc.Load(_map);
             }
             
+            _map.transform.position = new Vector3(-0.5f,-0.5f);
         }
 
     }
