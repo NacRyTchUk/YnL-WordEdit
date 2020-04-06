@@ -11,7 +11,6 @@ namespace Assets.Scripts.Map
     public class ChunkLoader : MonoBehaviour
     {
         private List<Chunk> _listOfChunks = new List<Chunk>();
-        private GameObject _map;
         
         public List<Chunk> ListOfChunks
         {
@@ -38,12 +37,12 @@ namespace Assets.Scripts.Map
         public GameObject CreateNewChunk(Vector2 chunkPos)
         {
             var chunkName = string.Format("{0},{1}", chunkPos.x, chunkPos.y);
-            var chunkHeader = _map.transform.Find(chunkName);
+            var chunkHeader = MapFileSystem.Map.transform.Find(chunkName);
             if (chunkHeader != null) throw new Exception("Create new chunk: err");
-             var newChunkHeader = Instantiate((GameObject) Resources.Load("Empty"), _map.transform);
+             var newChunkHeader = Instantiate((GameObject) Resources.Load("Empty"), MapFileSystem.Map.transform);
              newChunkHeader.transform.position = new Vector3(chunkPos.x*Chunk.CHUNK_WIGHT,chunkPos.y*Chunk.CHUNK_HEIGHT);
              newChunkHeader.name = chunkName;
-             _listOfChunks.Add(new Chunk(_map));
+             _listOfChunks.Add(new Chunk(MapFileSystem.Map));
              return newChunkHeader;
         }
 

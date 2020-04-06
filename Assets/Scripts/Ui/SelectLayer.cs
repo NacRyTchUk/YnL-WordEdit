@@ -42,7 +42,7 @@ namespace Assets.Scripts.Ui
 		private void LayerVisibleSet(int layerVisible)
 		{
 			Debug.Log(layerVisible);
-			var cl = GetComponent<MapFileSystem>().GetChunkLoader;
+			var cl = MapFileSystem.GetChunkLoader;
 			var loc = cl.ListOfChunks;
 			foreach (var ch in loc)
 			{

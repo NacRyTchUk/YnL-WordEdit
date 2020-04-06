@@ -25,10 +25,10 @@ namespace Assets.Scripts
         [SerializeField] private Button _buttonCreateNew;
         [SerializeField] private InputField _inputBox;
 
-        private ChunkLoader _chunkLoader;
+        private static ChunkLoader _chunkLoader;
         private string _mapNumbPostfix;
         private static GameObject _map;
-        public ChunkLoader GetChunkLoader
+        public static ChunkLoader GetChunkLoader
         {
             get { return _chunkLoader; }
         }
@@ -63,8 +63,10 @@ namespace Assets.Scripts
 
         public void LoadTheMap()
         {
-            _chunkLoader = new ChunkLoader {ListOfChunks = LoadChunksFrom(InputBox.text)};
-            GetChunkLoader.LoadAllChunks();
+            //_chunkLoader =  new ChunkLoader {ListOfChunks = LoadChunksFrom(InputBox.text)};
+            _chunkLoader = gameObject.AddComponent<ChunkLoader>();
+            _chunkLoader.ListOfChunks = LoadChunksFrom(InputBox.text);
+            _chunkLoader.LoadAllChunks();
         }
 
         private void LoadMapInfoData()

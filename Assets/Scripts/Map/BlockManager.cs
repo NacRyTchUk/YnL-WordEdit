@@ -4,7 +4,8 @@ namespace Assets.Scripts.Map
 {
 	public class BlockManager : MonoBehaviour
 	{
-		[SerializeField] private GameObject GlobalObj;
+		//[SerializeField] private ChunkLoader cl;
+		
 		public void BlockPlace(BlockPosition block)
 		{
 			Debug.Log("testBlockPlace");
@@ -34,7 +35,7 @@ namespace Assets.Scripts.Map
 
 		private Transform GetPathToLayer(BlockPosition block)
 		{
-			var cl = GlobalObj.GetComponent<ChunkLoader>();
+			var cl = MapFileSystem.GetChunkLoader;
 			var chunkHeader = GameObject.Find(GetChunkName(block));
 			if (chunkHeader == null) chunkHeader = cl.CreateNewChunk(block.chunkPos);
 			var ch = new Chunk(MapFileSystem.Map);
