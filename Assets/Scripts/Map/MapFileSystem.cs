@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.IO;
+using Assets.Scripts.Map;
 using JetBrains.Annotations;
 using UnityEngine;
 using UnityEngine.UI;
@@ -8,7 +9,7 @@ using Object = UnityEngine.Object;
 
 namespace Assets.Scripts
 {
-    struct Block
+    public struct Block
     {
         public float x;
         public float y;
@@ -26,7 +27,7 @@ namespace Assets.Scripts
 
         private ChunkLoader _chunkLoader;
         private string _mapNumbPostfix;
-
+        private static GameObject _map;
         public ChunkLoader GetChunkLoader
         {
             get { return _chunkLoader; }
@@ -35,6 +36,11 @@ namespace Assets.Scripts
         public InputField InputBox
         {
             get { return _inputBox; }
+        }
+
+        public static GameObject Map
+        {
+            get { return _map; }
         }
 
         private void Start()
@@ -67,6 +73,7 @@ namespace Assets.Scripts
 
         private static List<Chunk> LoadChunksFrom(string dir)
         {
+            _map = new GameObject("Map");
             var tChunkList = Directory.GetFiles(dir, "*.chunk");
             var tMap = new List<Chunk>();
 
@@ -76,7 +83,7 @@ namespace Assets.Scripts
                 var xIndex = Convert.ToInt32(tStr[0]);
                 var yIndex = Convert.ToInt32(tStr[1]);
 
-                var newChunk = new Chunk();
+                var newChunk = new Chunk(Map);
                 newChunk.SetCoord(xIndex, yIndex);
                 newChunk.Dir = dir;
                 tMap.Add(newChunk);

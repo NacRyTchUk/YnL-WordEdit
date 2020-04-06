@@ -5,20 +5,25 @@ using JetBrains.Annotations;
 using UnityEngine;
 using Object = UnityEngine.Object;
 
-namespace Assets.Scripts
+namespace Assets.Scripts.Map
 {
     public class Chunk
     {
         public  const int CHUNK_WIGHT = 48, CHUNK_HEIGHT = 24, MIN_LAYER_VALUE = 5, MAX_LAYER_VALUE = 5;
         private GameObject[] _layersHeaders = new GameObject[MAX_LAYER_VALUE + MIN_LAYER_VALUE + 1];
         private Vector2 _coordOfTheChunk;
-        private List<Block> _listOfBlocks = new List<Block>();
+        private List<Scripts.Block> _listOfBlocks = new List<Scripts.Block>();
 
         private GameObject _parentOfChunk;
 
+        public Chunk(GameObject _parentOfChunk)
+        {
+            
+        }
 
         public string Dir { get; set; }
 
+        
         public static int MinLayerValue
         {
             get { return MIN_LAYER_VALUE; }
@@ -27,6 +32,11 @@ namespace Assets.Scripts
         public GameObject[] LayersHeaders
         {
             get { return _layersHeaders; }
+        }
+
+        public GameObject ParentOfChunk
+        {
+            get { return _parentOfChunk; }
         }
 
 
@@ -49,7 +59,7 @@ namespace Assets.Scripts
         private void LoadOnScreen()
         {
             
-            var chunkHeader = Object.Instantiate((GameObject) Resources.Load("Empty"), _parentOfChunk.transform);
+            var chunkHeader = Object.Instantiate((GameObject) Resources.Load("Empty"), ParentOfChunk.transform);
             chunkHeader.transform.position = new Vector3(_coordOfTheChunk.x*CHUNK_WIGHT,_coordOfTheChunk.y*CHUNK_HEIGHT);
             chunkHeader.name = _coordOfTheChunk.x + "," + _coordOfTheChunk.y;
 
@@ -89,7 +99,7 @@ namespace Assets.Scripts
                     var oneBrick = t.Replace("[", "").Replace("]", "");
                     var brickData = oneBrick.Split(';');
 
-                    Block newBlock;
+                    Scripts.Block newBlock;
                     newBlock.blockIndex = Convert.ToInt32(brickData[0]);
                     newBlock.x = Convert.ToSingle(brickData[1]);
                     newBlock.y = Convert.ToSingle(brickData[2]);
@@ -99,9 +109,9 @@ namespace Assets.Scripts
             }
         }
 
-        public void Load([NotNull] GameObject pom)
+        public void Load([NotNull] GameObject poc)
         {
-            _parentOfChunk = pom;
+            _parentOfChunk = poc;
             LoadInMemory();
             LoadOnScreen();
         }

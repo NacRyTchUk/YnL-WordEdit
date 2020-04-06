@@ -1,4 +1,5 @@
 ﻿using System;
+using Assets.Scripts.Map;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -6,7 +7,6 @@ namespace Assets.Scripts.Ui
 {
 	public class SelectLayer : MonoBehaviour
 	{
-		[SerializeField] private GameObject eventObj;
 		private int _layer;
 
 		public int Layer
@@ -42,7 +42,7 @@ namespace Assets.Scripts.Ui
 		private void LayerVisibleSet(int layerVisible)
 		{
 			Debug.Log(layerVisible);
-			var cl = eventObj.GetComponent<MapFileSystem>().GetChunkLoader;
+			var cl = GetComponent<MapFileSystem>().GetChunkLoader;
 			var loc = cl.ListOfChunks;
 			foreach (var ch in loc)
 			{

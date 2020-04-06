@@ -1,4 +1,5 @@
 ﻿using System;
+using Assets.Scripts.Map;
 using Assets.Scripts.Ui;
 using UnityEngine;
 using UnityEngine.Experimental.UIElements;
@@ -8,9 +9,7 @@ using UnityEngine.Rendering.PostProcessing;
 
 namespace Assets.Scripts
 {
-    
-    
-    struct BlockPosition
+    public struct BlockPosition
     {
         public Vector2 chunkPos;
         public Vector2 blockPos;
@@ -23,10 +22,7 @@ namespace Assets.Scripts
         [SerializeField] private PostProcessProfile _ppp;
         [SerializeField] private Camera _cam;
         [SerializeField] private GameObject _scrollView;
-        [SerializeField] private GameObject _uiManager;
-        [SerializeField] private GameObject _loader;
         private Vector2 _oldMousePos;
-        private bool _isSelectingBlockMenuActive;
 
 
         private void Update()
@@ -39,7 +35,8 @@ namespace Assets.Scripts
         private void BlockPlace()
         {
             if (!Input.GetMouseButtonDown(Convert.ToInt32(MouseButton.LeftMouse))) return;
-            var selectLayer = _uiManager.GetComponent<SelectLayer>();
+            
+            var selectLayer = GetComponent<SelectLayer>();
             var layer = selectLayer.Layer;
             var globalPoint = Camera.main.ScreenToWorldPoint(Input.mousePosition);
             var chunkPositionX = Mathf.FloorToInt(globalPoint.x / Chunk.CHUNK_WIGHT);
@@ -50,8 +47,9 @@ namespace Assets.Scripts
             bp.layer = layer;
             bp.blockPos = new Vector2(blockPositionX,blockPositionY);
             bp.chunkPos = new Vector2(chunkPositionX,chunkPositionY);
-            
-            Debug.Log(string.Format("x:{0} y:{1} gx:{2} gy:{3}",chunkPositionX,chunkPositionY,blockPositionX,blockPositionY));
+            BlockManager blockManager = new BlockManager();
+            blockManager.BlockPlace(bp);
+            //Debug.Log(string.Format("x:{0} y:{1} gx:{2} gy:{3}",chunkPositionX,chunkPositionY,blockPositionX,blockPositionY));
         }   
         
         private void CameraMove()
