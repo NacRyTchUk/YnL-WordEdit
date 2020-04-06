@@ -63,7 +63,6 @@ namespace Assets.Scripts
 
         public void LoadTheMap()
         {
-            //_chunkLoader =  new ChunkLoader {ListOfChunks = LoadChunksFrom(InputBox.text)};
             _chunkLoader = gameObject.AddComponent<ChunkLoader>();
             _chunkLoader.ListOfChunks = LoadChunksFrom(InputBox.text);
             _chunkLoader.LoadAllChunks();

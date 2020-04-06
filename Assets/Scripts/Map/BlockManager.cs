@@ -37,18 +37,15 @@ namespace Assets.Scripts.Map
 		{
 			var cl = MapFileSystem.GetChunkLoader;
 			var chunkHeader = GameObject.Find(GetChunkName(block));
-			if (chunkHeader == null) chunkHeader = cl.CreateNewChunk(block.chunkPos);
-			var ch = new Chunk(MapFileSystem.Map);
+			if (chunkHeader == null)
+			{
+				chunkHeader = cl.CreateNewChunk(block.chunkPos);
+			}
 			
+			var layerHeader = chunkHeader.transform.Find(GetLayerName(block));
+			if (layerHeader == null) layerHeader = cl.CreateNewLayer(block,chunkHeader).transform;
 			
-			var layerHeader = chunkHeader.transform.Find(GetLayerName(block)).gameObject;
-			if (layerHeader == null) layerHeader = cl.CreateNewLayer(block.layer,chunkHeader);
-			ch.LayersHeaders[block.layer + Chunk.MIN_LAYER_VALUE] = layerHeader;
-			
-			var loc = cl.ListOfChunks;
-			loc.Add(ch);
-			cl.ListOfChunks = loc;
-			return layerHeader.transform;
+			return layerHeader;
 		}
 		private void CreateBlock(BlockPosition block)
 		{

@@ -29,12 +29,12 @@
         <option value="$PROJECT_DIR$/Assets/Scripts/ChunkLoader.cs" />
         <option value="$PROJECT_DIR$/Assets/Scripts/Map/Block.cs" />
         <option value="$PROJECT_DIR$/Assets/Scripts/Event.cs" />
-        <option value="$PROJECT_DIR$/Assets/Scripts/Map/Chunk.cs" />
-        <option value="$PROJECT_DIR$/Assets/Scripts/MoveController.cs" />
-        <option value="$PROJECT_DIR$/Assets/Scripts/Map/BlockManager.cs" />
         <option value="$PROJECT_DIR$/Assets/Scripts/Ui/SelectLayer.cs" />
-        <option value="$PROJECT_DIR$/Assets/Scripts/Map/ChunkLoader.cs" />
         <option value="$PROJECT_DIR$/Assets/Scripts/Map/MapFileSystem.cs" />
+        <option value="$PROJECT_DIR$/Assets/Scripts/Map/Chunk.cs" />
+        <option value="$PROJECT_DIR$/Assets/Scripts/Map/BlockManager.cs" />
+        <option value="$PROJECT_DIR$/Assets/Scripts/Map/ChunkLoader.cs" />
+        <option value="$PROJECT_DIR$/Assets/Scripts/MoveController.cs" />
       </list>
     </option>
   </component>
@@ -59,7 +59,7 @@
       <workItem from="1585962948817" duration="13939000" />
       <workItem from="1586054170923" duration="11082000" />
       <workItem from="1586143581667" duration="13556000" />
-      <workItem from="1586162409598" duration="1143000" />
+      <workItem from="1586162409598" duration="4379000" />
     </task>
     <servers />
   </component>

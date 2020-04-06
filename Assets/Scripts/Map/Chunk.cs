@@ -18,16 +18,10 @@ namespace Assets.Scripts.Map
 
         public Chunk(GameObject _parentOfChunk)
         {
-            
         }
 
         public string Dir { get; set; }
-
         
-        public static int MinLayerValue
-        {
-            get { return MIN_LAYER_VALUE; }
-        }
 
         public GameObject[] LayersHeaders
         {

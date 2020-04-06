@@ -2,8 +2,10 @@
 using Assets.Scripts.Map;
 using Assets.Scripts.Ui;
 using UnityEngine;
+using UnityEngine.EventSystems;
 using UnityEngine.Experimental.UIElements;
 using UnityEngine.Rendering.PostProcessing;
+
 // ReSharper disable MemberCanBePrivate.Global
 // ReSharper disable UnassignedField.Global
 
@@ -35,6 +37,8 @@ namespace Assets.Scripts
         private void BlockPlace()
         {
             if (!Input.GetMouseButtonDown(Convert.ToInt32(MouseButton.LeftMouse))) return;
+            if (EventSystem.current.IsPointerOverGameObject()) return;
+            
             
             var selectLayer = GetComponent<SelectLayer>();
             var layer = selectLayer.Layer;
