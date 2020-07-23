@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-namespace Assets.Scripts.Map
+namespace Map
 {
 	public class BlockManager : MonoBehaviour
 	{
@@ -9,7 +9,7 @@ namespace Assets.Scripts.Map
 		public void BlockPlace(BlockPosition block)
 		{
 			Debug.Log("testBlockPlace");
-			if (isPlaceFree(block))
+			if (IsPlaceFree(block))
 			{
 				CreateBlock(block);
 				
@@ -19,12 +19,12 @@ namespace Assets.Scripts.Map
 				Debug.Log("ErrCreated");
 		}
 
-		private bool isPlaceFree(BlockPosition block)
+		private bool IsPlaceFree(BlockPosition block)
 		{
 			var chunkHeader = GameObject.Find(GetChunkName(block));
 			if (chunkHeader == null) return true;
 			
-			var layerHeader = chunkHeader.transform.Find(GetLayerName(block));
+			Transform layerHeader = chunkHeader.transform.Find(GetLayerName(block));
 			if (layerHeader == null) return true;
 			
 			var blockObj = layerHeader.transform.Find(GetBlockName(block));
@@ -49,7 +49,7 @@ namespace Assets.Scripts.Map
 		}
 		private void CreateBlock(BlockPosition block)
 		{
-			var blockIndex = 1;
+			const int blockIndex = 1;
 			var layerHeader = GetPathToLayer(block);
 			var newBlock = Instantiate((GameObject) Resources.Load("Empty"), layerHeader.transform);
 			newBlock.transform.position += new Vector3(block.blockPos.x,block.blockPos.y);
@@ -58,22 +58,22 @@ namespace Assets.Scripts.Map
 
 		}
 
-		private string GetBlockName(BlockPosition block)
+		private static string GetBlockName(BlockPosition block)
 		{
-			var blockIndex = 1;
-			var result = string.Format("[{0};{1};{2};{3}]",blockIndex,block.blockPos.x,block.blockPos.y,block.layer);
+			const int blockIndex = 1;
+			string result = $"[{blockIndex};{block.blockPos.x};{block.blockPos.y};{block.layer}]";
 			return result;
 		}
 
-		private string GetChunkName(BlockPosition block)
+		private static string GetChunkName(BlockPosition block)
 		{
-			var result = string.Format("{0},{1}",block.chunkPos.x,block.chunkPos.y); 
+			string result = $"{block.chunkPos.x},{block.chunkPos.y}"; 
 			return result;
 		}
 
 		private string GetLayerName(BlockPosition block)
 		{
-			var result = string.Format("Layer: {0}",block.layer); 
+			string result = $"Layer: {block.layer}"; 
 			return result;
 		}
 	}

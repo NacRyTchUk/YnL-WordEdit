@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ContentModelStore">
-    <e p="C:\Users\Авершина\.Rider2019.3\system\extResources" t="IncludeRecursive" />
-    <e p="C:\Users\Авершина\.Rider2019.3\system\resharper-host\local\Transient\ReSharperHost\v193\SolutionCaches\_YnL-WordEdit.-1119597075.00" t="ExcludeRecursive" />
-    <e p="F:\OnI\UniProj\YnL-WordEdit" t="IncludeRecursive">
+    <e p="C:\Users\NRTU\AppData\local\JetBrains\Rider2020.1\extResources" t="IncludeRecursive" />
+    <e p="C:\Users\NRTU\AppData\local\JetBrains\Rider2020.1\resharper-host\local\Transient\ReSharperHost\v201\SolutionCaches\_YnL-WordEdit.819441460.00" t="ExcludeRecursive" />
+    <e p="X:\CTransData\ProjFIles\Unity\YnL-WordEdit" t="IncludeRecursive">
       <e p="Assembly-CSharp.csproj" t="IncludeRecursive" />
       <e p="Assets" t="Include">
         <e p="Balls'n'Lasers" t="Include">
@@ -19,8 +19,8 @@
             <e p="MapFileSystem.cs" t="Include" />
           </e>
           <e p="MoveController.cs" t="Include" />
-          <e p="Player_Animation.cs" t="Include" />
-          <e p="Player_Move.cs" t="Include" />
+          <e p="PlayerAnimation.cs" t="Include" />
+          <e p="PlayerMove.cs" t="Include" />
           <e p="Ui" t="Include">
             <e p="BlockPanel.cs" t="Include" />
             <e p="ScrollView.cs" t="Include" />

@@ -1,13 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.IO;
-using Assets.Scripts.Map;
-using JetBrains.Annotations;
 using UnityEngine;
 using UnityEngine.UI;
-using Object = UnityEngine.Object;
 
-namespace Assets.Scripts
+namespace Map
 {
     public struct Block
     {
@@ -21,31 +18,20 @@ namespace Assets.Scripts
     {
         public static Sprite[] pic;
 
-        [SerializeField] private Button _buttonLoad;
-        [SerializeField] private Button _buttonCreateNew;
-        [SerializeField] private InputField _inputBox;
+        [SerializeField] private Button buttonLoad;
+        [SerializeField] private Button buttonCreateNew;
+        [SerializeField] private InputField inputBox;
 
-        private static ChunkLoader _chunkLoader;
         private string _mapNumbPostfix;
-        private static GameObject _map;
-        public static ChunkLoader GetChunkLoader
-        {
-            get { return _chunkLoader; }
-        }
+        public static ChunkLoader GetChunkLoader { get; private set; }
 
-        public InputField InputBox
-        {
-            get { return _inputBox; }
-        }
+        public InputField InputBox => inputBox;
 
-        public static GameObject Map
-        {
-            get { return _map; }
-        }
+        public static GameObject Map  { get; private set; }
 
         private void Start()
         {
-            var counter = 0;
+            int counter = 0;
             while (true)
             {
                 counter++;
@@ -63,9 +49,9 @@ namespace Assets.Scripts
 
         public void LoadTheMap()
         {
-            _chunkLoader = gameObject.AddComponent<ChunkLoader>();
-            _chunkLoader.ListOfChunks = LoadChunksFrom(InputBox.text);
-            _chunkLoader.LoadAllChunks();
+            GetChunkLoader = gameObject.AddComponent<ChunkLoader>();
+            GetChunkLoader.ListOfChunks = LoadChunksFrom(InputBox.text);
+            GetChunkLoader.LoadAllChunks();
         }
 
         private void LoadMapInfoData()
@@ -74,18 +60,18 @@ namespace Assets.Scripts
 
         private static List<Chunk> LoadChunksFrom(string dir)
         {
-            _map = new GameObject("Map");
+            Map = new GameObject("Map");
             var tChunkList = Directory.GetFiles(dir, "*.chunk");
             var tMap = new List<Chunk>();
 
-            foreach (var ch in tChunkList)
+            foreach (string ch in tChunkList)
             {
                 var tStr = ch.Replace(dir + "\\", "").Replace(".chunk", "").Split(',');
-                var xIndex = Convert.ToInt32(tStr[0]);
-                var yIndex = Convert.ToInt32(tStr[1]);
+                int xIndex = Convert.ToInt32(tStr[0]);
+                int yIndex = Convert.ToInt32(tStr[1]);
 
-                var newChunk = new Chunk(Map);
-                newChunk.SetCoord(xIndex, yIndex);
+                var newChunk = new Chunk();
+                newChunk.SetCoords(xIndex, yIndex);
                 newChunk.Dir = dir;
                 tMap.Add(newChunk);
             }

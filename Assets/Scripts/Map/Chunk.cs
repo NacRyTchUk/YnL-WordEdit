@@ -5,47 +5,41 @@ using JetBrains.Annotations;
 using UnityEngine;
 using Object = UnityEngine.Object;
 
-namespace Assets.Scripts.Map
+namespace Map
 {
     public class Chunk
     {
-        public  const int CHUNK_WIGHT = 48, CHUNK_HEIGHT = 24, MIN_LAYER_VALUE = 5, MAX_LAYER_VALUE = 5;
-        private GameObject[] _layersHeaders = new GameObject[MAX_LAYER_VALUE + MIN_LAYER_VALUE + 1];
+        public  const int ChunkWight = 48, ChunkHeight = 24, MinLayerValue = 5;
+        private const int MaxLayerValue = 5;
         private Vector2 _coordOfTheChunk;
-        private List<Scripts.Block> _listOfBlocks = new List<Scripts.Block>();
+        private readonly List<Block> _listOfBlocks = new List<Block>();
 
-        private GameObject _parentOfChunk;
-
-        public Chunk(GameObject _parentOfChunk)
+        public Chunk()
         {
         }
+
+        
 
         public string Dir { get; set; }
         
 
-        public GameObject[] LayersHeaders
-        {
-            get { return _layersHeaders; }
-        }
+        public GameObject[] LayersHeaders { get; } = new GameObject[MaxLayerValue + MinLayerValue + 1];
 
-        public GameObject ParentOfChunk
-        {
-            get { return _parentOfChunk; }
-        }
+        private GameObject ParentOfChunk { get; set; }
 
 
-        public void SetCoord(int x, int y)
+        public void SetCoords(int x, int y)
         {
             _coordOfTheChunk.x = x;
             _coordOfTheChunk.y = y;
         }
 
-        public void SetCoord(Vector2 coord)
+        public void SetCoords(Vector2 coords)
         {
-            _coordOfTheChunk = coord;
+            _coordOfTheChunk = coords;
         }
 
-        public Vector2 GetCoord()
+        public Vector2 GetCoords()
         {
             return _coordOfTheChunk;
         }
@@ -54,22 +48,22 @@ namespace Assets.Scripts.Map
         {
             
             var chunkHeader = Object.Instantiate((GameObject) Resources.Load("Empty"), ParentOfChunk.transform);
-            chunkHeader.transform.position = new Vector3(_coordOfTheChunk.x*CHUNK_WIGHT,_coordOfTheChunk.y*CHUNK_HEIGHT);
+            chunkHeader.transform.position = new Vector3(_coordOfTheChunk.x*ChunkWight,_coordOfTheChunk.y*ChunkHeight);
             chunkHeader.name = _coordOfTheChunk.x + "," + _coordOfTheChunk.y;
 
             foreach (var lob in _listOfBlocks)
             {
                 
-                var layerValue = lob.mainLayer + MIN_LAYER_VALUE;
-                if (_layersHeaders[layerValue] == null)
+                int layerValue = lob.mainLayer + MinLayerValue;
+                if (LayersHeaders[layerValue] == null)
                 {
-                    _layersHeaders[layerValue] =
+                    LayersHeaders[layerValue] =
                         Object.Instantiate((GameObject) Resources.Load("Empty"), chunkHeader.transform);
-                    _layersHeaders[layerValue].name = "Layer: " + lob.mainLayer;
+                    LayersHeaders[layerValue].name = "Layer: " + lob.mainLayer;
                 }
 
                 var newObj = Object.Instantiate((GameObject) Resources.Load("Empty"),
-                    _layersHeaders[layerValue].transform);
+                    LayersHeaders[layerValue].transform);
                 newObj.name = "[" + lob.blockIndex + ";" + lob.x + ";" + lob.y + ";" + lob.mainLayer + "]";
 
                 newObj.AddComponent<SpriteRenderer>().sprite = MapFileSystem.pic[lob.blockIndex];
@@ -83,17 +77,17 @@ namespace Assets.Scripts.Map
         {
             using (var sr = new StreamReader(Dir + "/" + _coordOfTheChunk.x + ',' + _coordOfTheChunk.y + ".chunk"))
             {
-                var fileLine = sr.ReadLine();
+                string fileLine = sr.ReadLine();
                 if (fileLine == null) throw new NullReferenceException();
 
                 var mainBlock = fileLine.Split('$');
                 var bricks = mainBlock[0].Split(':');
                 foreach (var t in bricks)
                 {
-                    var oneBrick = t.Replace("[", "").Replace("]", "");
+                    string oneBrick = t.Replace("[", "").Replace("]", "");
                     var brickData = oneBrick.Split(';');
 
-                    Scripts.Block newBlock;
+                    Block newBlock;
                     newBlock.blockIndex = Convert.ToInt32(brickData[0]);
                     newBlock.x = Convert.ToSingle(brickData[1]);
                     newBlock.y = Convert.ToSingle(brickData[2]);
@@ -105,7 +99,7 @@ namespace Assets.Scripts.Map
 
         public void Load([NotNull] GameObject poc)
         {
-            _parentOfChunk = poc;
+            ParentOfChunk = poc;
             LoadInMemory();
             LoadOnScreen();
         }

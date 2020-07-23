@@ -1,9 +1,10 @@
 ﻿using UnityEngine;
 
-namespace Assets.Scripts.Map
+namespace Map
 {
-	public class Block : MonoBehaviour {
-	
-		
-	}
+	// public class Block : MonoBehaviour {
+	//
+	// 	
+	// }
+
 }

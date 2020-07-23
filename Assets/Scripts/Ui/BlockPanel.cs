@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using UnityEngine.UI;
 
-namespace Assets.Scripts
+namespace Ui
 {
     public class BlockPanel : MonoBehaviour {
         

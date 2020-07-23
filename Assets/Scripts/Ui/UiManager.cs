@@ -1,11 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.IO;
-using UnityEngine;
-using UnityEngine.Experimental.UIElements;
-using UnityEngine.UI;
+﻿using UnityEngine;
 
-namespace Assets.Scripts
+namespace Ui
 {
 	public enum UiElementsIndex {LoadButt, CreateButt, InputField};
 	public enum UiModeIndex {MainMenu, Editor, BlockSelecting};

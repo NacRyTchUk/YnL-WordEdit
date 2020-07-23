@@ -1,11 +1,12 @@
 ﻿using System;
 using UnityEngine;
 using UnityEngine.UI;
+
 // ReSharper disable MemberCanBePrivate.Global
 // ReSharper disable UnassignedField.Global
 // ReSharper disable IdentifierTypo
 
-namespace Assets.Scripts
+namespace Ui
 {
     public class ScrollView : MonoBehaviour {
         public GameObject content;
